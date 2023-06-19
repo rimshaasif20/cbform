@@ -15,6 +15,7 @@ const initialState = {
           users: [...state.users, action.payload],
         };
         case EDIT_USER:
+          debugger;
         return {
           ...state,
           editingUser:  action.payload,

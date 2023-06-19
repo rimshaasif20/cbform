@@ -9,6 +9,7 @@ class List extends Component {
   };
 
   handleEditUser = (user) => {
+    debugger;
     this.props.userToBeUpdated(user);
   };
 
@@ -25,18 +26,15 @@ class List extends Component {
 
     return users.map((user, index) => (
       <tr key={index}>
-        <td >{user.username}</td>
-        {/* <td >{user.fname}</td>
-        <td >{user.lname}</td> */}
-        <td >{user.password}</td>
+        <td>{user.username}</td>
+        <td>{user.password}</td>
         <td>
-          <button type="button" onClick={() => this.handleEditUser(user)} className='btn btn-info '>
+          <button type="button" onClick={() => this.handleEditUser(user)} className='btn btn-info'>
             Edit
           </button>
-         
         </td>
         <td>
-           <button type="button" onClick={() => this.handleDeleteUser(user.id)} className='btn btn-danger '>
+          <button type="button" onClick={() => this.handleDeleteUser(user.id)} className='btn btn-danger'>
             Delete
           </button>
         </td>
@@ -49,18 +47,15 @@ class List extends Component {
       <div className='d-flex justify-content-center'>
         <Table className='table table-hover table-bordered mt-4 w-75 table-striped'>
           <caption>List of users</caption>
-
-        <thead className='bg-dark'>
-          <tr >
-            <th style={{color: 'white'}}>Username</th>
-            {/* <th>First Name</th>
-            <th>Last Name</th> */}
-            <th style={{color: 'white'}}>Password</th>
-            <th  style={{color: 'white'}} colSpan={2}>Actions</th>
-          </tr>
-        </thead>
-        <tbody className=''>{this.renderTableData()}</tbody>
-      </Table>
+          <thead className='bg-dark'>
+            <tr>
+              <th style={{ color: 'white' }}>Username</th>
+              <th style={{ color: 'white' }}>Password</th>
+              <th style={{ color: 'white' }} colSpan={2}>Actions</th>
+            </tr>
+          </thead>
+          <tbody className=''>{this.renderTableData()}</tbody>
+        </Table>
       </div>
     );
   }
