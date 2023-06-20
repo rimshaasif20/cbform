@@ -9,7 +9,6 @@ const initialState = {
     switch (action.type) {
        
       case ADD_USER:
-        debugger;
         return {
           ...state,
           users: [...state.users, action.payload],
@@ -18,9 +17,10 @@ const initialState = {
           debugger;
         return {
           ...state,
-          editingUser:  action.payload,
+          editingUser:  state.users.filter((user) => user.id !== action.payload.id),  
         };
       case  UPDATE_USER:
+        debugger;
         return {
           ...state,
           users: state.users.map((user) =>

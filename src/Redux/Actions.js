@@ -12,10 +12,10 @@ export const addUsers = (user) => {
   };
 };
 
-export const userToBeUpdated = (user)  => {
+export const userToBeUpdated = (id)  => {
   return{
     type: EDIT_USER,
-    payload: user
+    payload: id
   };
 };
 

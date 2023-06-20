@@ -21,11 +21,14 @@ const TextInput = ({ handler, touched, hasError, meta }) => (
 class SignUp extends Component {
   constructor(props) {
     super(props);
-    const {editingUser}=props;
-    const initialValues=editingUser
-    ?{id: editingUser.id,
-    username: editingUser.username,
-  password: editingUser.password}:
+    const { editingUser } = props;
+    const initialValues = editingUser
+    ?{
+      id: editingUser[0].id,
+      username: editingUser[0].username,
+      password: editingUser[0].password
+    }
+    :
   {
     id: 0,
     username: "",
@@ -50,7 +53,7 @@ class SignUp extends Component {
     const { editingUser } = this.props;
     if (editingUser !== prevProps.editingUser) {
       if (editingUser != undefined) {
-        const { id, username, password } = editingUser;
+        const { id, username, password } = editingUser[0];
         this.loginForm.patchValue({ id, username, password });
       } else {
         this.loginForm.reset();
@@ -61,12 +64,13 @@ class SignUp extends Component {
   
 
   handleSubmit = (e) => {
+    debugger;
     e.preventDefault();
     const id = Date.now();
     const { addUsers, updateUser, editingUser } = this.props;
     console.log("Form values", this.loginForm.value);
     if (editingUser) {
-      const updatedValues = { ...this.loginForm.value, id: editingUser.id };
+      const updatedValues = { ...this.loginForm.value, id: editingUser[0].id };
       updateUser(updatedValues);
     } else {
       const newUser={...this.loginForm.value,id}
