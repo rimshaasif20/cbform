@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { deleteUser, userToBeUpdated } from './Redux/Actions';
 import { Table } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 class List extends Component {
   handleDeleteUser = (userId) => {
@@ -29,9 +30,11 @@ class List extends Component {
         <td>{user.username}</td>
         <td>{user.password}</td>
         <td>
+     <Link className={`/${user.id}`}>
           <button type="button" onClick={() => this.handleEditUser(user)} className='btn btn-info'>
             Edit
           </button>
+         </Link>
         </td>
         <td>
           <button type="button" onClick={() => this.handleDeleteUser(user.id)} className='btn btn-danger'>

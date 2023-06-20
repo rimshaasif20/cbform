@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
   FormBuilder,
@@ -20,33 +21,32 @@ const TextInput = ({ handler, touched, hasError, meta }) => (
 class SignUp extends Component {
   constructor(props) {
     super(props);
-
-    this.loginForm = FormBuilder.group({
-      username: ["", Validators.required],
-      password: ["", Validators.required],
-      rememberMe: false
-    });
+    const {editingUser}=props;
+    const initialValues=editingUser
+    ?{id: editingUser.id,
+    username: editingUser.username,
+  password: editingUser.password}:
+  {
+    id: 0,
+    username: "",
+    password: ""
   }
-
-  handleSubmit = (e) => {
-  e.preventDefault();
-  const id = Date.now();
-  const values = {
-    ...this.loginForm.value,
-    id: id
-  };
-  const { addUsers, updateUser, editingUser } = this.props;
-  console.log("Form values", values);
-  if (editingUser) {
-    const updatedValues = { ...this.loginForm.value, id: editingUser.id };
-    updateUser(updatedValues);
-  } else {
-    addUsers(values);
+  this.loginForm=FormBuilder.group(initialValues);
+    // if(editingUser){
+    //   this.loginForm = FormBuilder.group({
+    //   id: [editingUser.id],
+    //   username: [editingUser.username, Validators.required],
+    //   password: [editingUser.password, Validators.required],
+    //   rememberMe: [editingUser.rememberMe]
+    // });} 
+    // else{  
+    //   this.loginForm = FormBuilder.group({
+    //   username: ["", Validators.required],
+    //   password: ["", Validators.required],
+    //   rememberMe: false
+    // });
   }
-  this.loginForm.reset();
-}
-
-  componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps) {
     const { editingUser } = this.props;
     if (editingUser !== prevProps.editingUser) {
       if (editingUser != undefined) {
@@ -58,6 +58,24 @@ class SignUp extends Component {
     }
   }
 
+  
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const id = Date.now();
+    const { addUsers, updateUser, editingUser } = this.props;
+    console.log("Form values", this.loginForm.value);
+    if (editingUser) {
+      const updatedValues = { ...this.loginForm.value, id: editingUser.id };
+      updateUser(updatedValues);
+    } else {
+      const newUser={...this.loginForm.value,id}
+      addUsers(newUser);
+    }
+    this.loginForm.reset();
+  }
+
+ 
   render() {
     return (
       <>
@@ -100,6 +118,7 @@ class SignUp extends Component {
                     type="submit"
                     disabled={invalid}
                   >
+
                     Submit
                   </button>
                 </form>
